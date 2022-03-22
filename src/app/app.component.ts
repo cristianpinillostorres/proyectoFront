@@ -1,18 +1,20 @@
 import { Component , OnInit} from '@angular/core';
 
-import { BackendService } from './backend.service';
+import { BackendService, Pelicula} from './backend.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit{
   title = 'ProyectoFront';
 
-  constructor(private servicio:BackendService){}
-
   listaPeliculas: any = [] 
+  user: Pelicula = new Pelicula("","",NaN);
+
+  constructor(private servicio:BackendService){}
 
   ngOnInit():void {
     this.servicio.getPeliculas().subscribe(res => {
@@ -20,5 +22,14 @@ export class AppComponent implements OnInit{
       this.listaPeliculas = res
     })
   }
+
+  createMovie(): void {
+    this.servicio.postPeliculas(this.user)
+        .subscribe( data => {
+          alert("Pelicula agregada con exito !!");
+          window.location.reload();
+  });
+
+  };
 
 }

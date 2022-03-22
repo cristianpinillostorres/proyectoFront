@@ -1,15 +1,70 @@
+<div class="container">
+    <br>
+    <div th:if="${!list.isEmpty()}">
+        <div class="row">
+            <div class="col-9">
+                <h2>Lista de Peliculas </h2>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    data-bs-whatever="@mdo">Agregar Pelicula</button>
+            </div>
+        </div>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Calificacion</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lista of listaPeliculas">
+                    <td>{{lista.nombre}}</td>
+                    <td>{{lista.descripcion}}</td>
+                    <td>{{lista.calificacion}}</td>
+                    <td><a class="btn btn-info" th:href="@{/save/{id}(id=${persona.id})}">Editar</a></td>
+                    <td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${persona.id})}">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<div>
-    <table class="table">
-        <tr>
-            <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Calificacion</th>
-        </tr>
-        <tr *ngFor="let lista of listaPeliculas">
-            <td >{{lista.nombre}}</td>
-            <td >{{lista.descripcion}}</td>
-            <td >{{lista.calificacion}}</td>
-        </tr>
-    </table>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nueva Pelicula</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-1">
+                        <label for="name" class="col-form-label">Nombre:</label>
+
+                        <input type="text" class ="form-control" id = "name"
+                         [(ngModel)] = "user.nombre" name = "name">
+
+                    </div>
+                    <div class="mb-1">
+                        <label for="description" class="col-form-label">Descripcion:</label>
+                        <input type="text" class="form-control" id="description"
+                        [(ngModel)] = "user.descripcion" name = "des">
+                    </div>
+                    <div class="">
+                        <label for="calification" class="col-form-label">Calificacion:</label>
+                        <input type="number" class="form-control" id="calification"
+                        [(ngModel)] = "user.calificacion" name = "cal">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="createMovie()">Guardar</button>
+            </div>
+        </div>
+    </div>
 </div>
